@@ -17,8 +17,8 @@
     on:input={handleInput}
 >
 
-{
-    response.length > 0
-        ? `We have ${response.length} movies for your search`
-        : "No results found"
-}
+{#if response.length > 0}
+    <p>We have {response.length} movies for your search</p>
+{:else}
+    <p>No results found</p>
+{/if}
