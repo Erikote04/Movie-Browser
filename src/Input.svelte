@@ -25,23 +25,21 @@
 {#if loading}
     <p>Loading...</p>
 {:else}
-    {#if response.length > 0}
-        <div>
-            <p>We have {response.length} movies for your search</p>
-            {#each response as {
-                Title: movieTitle, 
-                Year: movieYear, 
-                Poster: moviePoster
-            }, index}
-                <article>
-                    <p>#={index}</p>
-                    <img src={moviePoster} alt={movieTitle}>
-                    <h3>{movieTitle}</h3>
-                    <span>{movieYear}</span>
-                </article>
-            {/each}
-        </div>
+    {#each response as {
+        Title: movieTitle, 
+        Year: movieYear, 
+        Poster: moviePoster
+    }, index}
+        <article>
+            <p>#={index}</p>
+            <h3>{movieTitle}</h3>
+            <span>{movieYear}</span>
+            {#if 2023 - movieYear < 5}
+                <i>🆕</i>
+            {/if}
+            <img src={moviePoster} alt={movieTitle}>
+        </article>
     {:else}
         <p>No results found</p>
-    {/if}
+    {/each}
 {/if}
