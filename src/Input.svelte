@@ -28,11 +28,15 @@
     {#if response.length > 0}
         <div>
             <p>We have {response.length} movies for your search</p>
-            {#each response as movie}
+            {#each response as {
+                Title: movieTitle, 
+                Year: movieYear, 
+                Poster: moviePoster
+            }}
                 <article>
-                    <img src={movie.Poster} alt={movie.Title}>
-                    <h3>{movie.Title}</h3>
-                    <span>{movie.Year}</span>
+                    <img src={moviePoster} alt={movieTitle}>
+                    <h3>{movieTitle}</h3>
+                    <span>{movieYear}</span>
                 </article>
             {/each}
         </div>
