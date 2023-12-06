@@ -1,4 +1,6 @@
 <script>
+    import Movie from "./Movie.svelte";
+
     let value = "";
     let loading = false;
     let response = [];
@@ -29,16 +31,12 @@
         Title: movieTitle, 
         Year: movieYear, 
         Poster: moviePoster
-    }, index}
-        <article>
-            <p>#={index}</p>
-            <h3>{movieTitle}</h3>
-            <span>{movieYear}</span>
-            {#if 2023 - movieYear < 5}
-                <i>🆕</i>
-            {/if}
-            <img src={moviePoster} alt={movieTitle}>
-        </article>
+    }}
+        <Movie 
+            title={movieTitle}
+            year={movieYear}
+            poster={moviePoster}
+        />
     {:else}
         <p>No results found</p>
     {/each}
