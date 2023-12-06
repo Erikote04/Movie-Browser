@@ -1,13 +1,18 @@
 <script>
     let value = "";
+    let loading = false;
     let response = [];
 
     const handleInput = (e) => value = e.target.value;
 
-    $: if (value.length > 2){
+    $: if (value.length > 2) {
+        loading = true;
         fetch(`https://www.omdbapi.com/?s=${value}&apikey=422350ff`)
         .then(res => res.json())
-        .then((apiResponse) => response = apiResponse.Search || []);
+        .then(apiResponse => {
+            response = apiResponse.Search || [];
+            loading = false;
+        });
     }
 </script>
 
@@ -17,8 +22,12 @@
     on:input={handleInput}
 >
 
-{#if response.length > 0}
-    <p>We have {response.length} movies for your search</p>
+{#if loading}
+    <p>Loading...</p>
 {:else}
-    <p>No results found</p>
+    {#if response.length > 0}
+        <p>We have {response.length} movies for your search</p>
+    {:else}
+        <p>No results found</p>
+    {/if}
 {/if}
