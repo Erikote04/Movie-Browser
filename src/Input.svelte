@@ -32,8 +32,9 @@
                 Title: movieTitle, 
                 Year: movieYear, 
                 Poster: moviePoster
-            }}
+            }, index}
                 <article>
+                    <p>#={index}</p>
                     <img src={moviePoster} alt={movieTitle}>
                     <h3>{movieTitle}</h3>
                     <span>{movieYear}</span>
