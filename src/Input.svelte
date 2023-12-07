@@ -2,19 +2,14 @@
     import Movie from "./Movie.svelte";
 
     let value = "";
-    let loading = false;
     let response = [];
 
     const handleInput = (e) => value = e.target.value;
 
     $: if (value.length > 2) {
-        loading = true;
-        fetch(`https://www.omdbapi.com/?s=${value}&apikey=422350ff`)
+        response = fetch(`https://www.omdbapi.com/?s=${value}&apikey=422350ff`)
         .then(res => res.json())
-        .then(apiResponse => {
-            response = apiResponse.Search || [];
-            loading = false;
-        });
+        .then(apiResponse => apiResponse.Search || []);
     }
 </script>
 
@@ -24,10 +19,10 @@
     on:input={handleInput}
 >
 
-{#if loading}
+{#await response}
     <p>Loading...</p>
-{:else}
-    {#each response as {
+{:then movies}
+    {#each movies as {
         Title: movieTitle, 
         Year: movieYear, 
         Poster: moviePoster
@@ -40,4 +35,4 @@
     {:else}
         <p>No results found</p>
     {/each}
-{/if}
+{/await}
